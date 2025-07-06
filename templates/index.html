@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Начать игру - Побег из подземелья{% endblock %}
+
+{% block header %}
+    {{ super() }}  {# Используем стандартный заголовок из base.html #}
+    <p class="text-center lead">Текстовое приключение в подземелье</p>
+{% endblock %}
+
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-primary">
+            <div class="card-header bg-dark text-white">
+                <h2 class="text-center">Начать игру</h2>
+            </div>
+            <div class="card-body">
+                <p class="lead text-center">Вы оказались в заточении. Ваша цель - выбраться на балкон!</p>
+                
+                <form method="POST">
+                    {{ form.csrf_token }}
+                    
+                    <div class="mb-3">
+                        {{ form.player_name.label(class="form-label") }}
+                        {{ form.player_name(class="form-control") }}
+                        {% for error in form.player_name.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div class="d-grid">
+                    
+                    {{ form.submit(class="btn btn-primary w-100") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Автофокус на поле ввода имени при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        const playerNameField = document.querySelector('#player_name');
+        if (playerNameField) {
+            playerNameField.focus();
+        }
+    });
+</script>
+{% endblock %}

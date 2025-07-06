@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Настройки игры - Побег из подземелья{% endblock %}
+
+{% block styles %}
+<style>
+    .custom-form-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .form-section {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #dee2e6;
+    }
+    .bi {
+        vertical-align: -0.125em; /* Выравнивание иконок */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="custom-form-container">
+    <div class="text-center mb-5">
+        <h1><i class="bi bi-gear me-2"></i>Настройки игры</h1>
+        <p class="lead">Настройте параметры игры по своему вкусу</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <!-- Секция сложности -->
+        <div class="form-section">
+            <h3 class="mb-4"><i class="bi bi-speedometer2 me-2"></i>Сложность</h3>
+            
+            <div class="mb-3">
+                {{ form.difficulty.label(class="form-label") }}
+                {{ form.difficulty(class="form-select") }}
+                <div class="form-text">Выберите уровень сложности игры</div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    {{ form.enable_timer(class="form-check-input") }}
+                    {{ form.enable_timer.label(class="form-check-label") }}
+                    <i class="bi bi-clock-history ms-1"></i>
+                </div>
+                <div class="form-text">Включить ограничение по времени</div>
+            </div>
+        </div>
+
+        <!-- Секция персонажа -->
+        <div class="form-section">
+            <h3 class="mb-4"><i class="bi bi-person me-2"></i>Персонаж</h3>
+            
+            <div class="mb-3">
+                {{ form.character_name.label(class="form-label") }}
+                {{ form.character_name(class="form-control") }}
+                <div class="form-text">Введите имя вашего персонажа</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.character_class.label(class="form-label") }}
+                {{ form.character_class(class="form-select") }}
+                <div class="form-text">Выберите класс персонажа</div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.avatar.label(class="form-label") }}
+                {{ form.avatar(class="form-control") }}
+                <div class="form-text">Загрузите аватар персонажа (JPG/PNG)</div>
+            </div>
+        </div>
+
+        <!-- Секция управления -->
+        <div class="form-section">
+            <h3 class="mb-4"><i class="bi bi-keyboard me-2"></i>Управление</h3>
+            
+            <div class="mb-3">
+                {{ form.key_bindings.label(class="form-label") }}
+                {{ form.key_bindings(class="form-control", rows="4") }}
+                <div class="form-text">Укажите сочетания клавиш для управления</div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    {{ form.invert_mouse(class="form-check-input") }}
+                    {{ form.invert_mouse.label(class="form-check-label") }}
+                    <i class="bi bi-mouse ms-1"></i>
+                </div>
+                <div class="form-text">Инвертировать управление мышью</div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bi bi-save me-2"></i>Сохранить настройки
+            </button>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle me-2"></i>Отмена
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Валидация формы перед отправкой
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const difficulty = document.getElementById('difficulty');
+        if (difficulty && difficulty.value === '') {
+            e.preventDefault();
+            alert('Пожалуйста, выберите уровень сложности!');
+        }
+    });
+</script>
+{% endblock %}

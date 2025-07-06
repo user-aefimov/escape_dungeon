@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Блок для заголовка страницы -->
+    <title>
+        {% block title %}
+            Побег из подземелья
+        {% endblock %}
+    </title>
+
+    <!-- Блок для дополнительных мета-тегов -->
+    {% block meta %}
+        <meta name="description" content="Текстовое приключение в подземелье">
+    {% endblock %}
+
+    <!-- Основные стили -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Bootstrap Icons -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Блок для дополнительных стилей -->
+    {% block styles %}{% endblock %}
+    
+    <!-- Блок для дополнительных ресурсов в head -->
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <!-- Основной контейнер для содержимого страницы -->
+    <div class="container mt-4">
+        <!-- Блок для шапки --> <!-- Шапка сайта -->
+        <header class="mb-4">
+            {% block header %}
+                <!-- Главный заголовок страницы -->
+                <h1 class="text-center">Побег из подземелья</h1>
+                <!-- Блок с именем игрока (отображается только если игрок авторизован) -->
+                {% if session.get('player_name') %}
+                    <!-- Имя игрока выравнивается по правому краю -->
+                    <p class="text-end">Игрок: {{ session.player_name }}</p>
+                {% endif %}
+            {% endblock %}
+        </header>
+                
+        <!-- Блок для навигационного меню -->
+        {% block navigation %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{{ url_for('index') }}">Главная</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('about') }}">О игре</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% endblock %}
+        
+        <!-- Основное содержимое страницы -->
+        <main>
+            <!-- Обработка flash-сообщений -->
+             <!-- Блок для уведомлений и сообщений -->
+            {% block messages %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="mb-3">
+                            <!-- Цикл по всем сообщениям -->
+                            {% for category, message in messages %}
+                                <!-- 
+                                    Вывод сообщения в соответствующем стиле:
+                                    alert-success (зеленый), alert-danger (красный) и т.д.
+                                    fade show - плавное появление
+                                    alert-dismissible - можно закрыть
+                                -->
+                                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                                    <!-- Текст сообщения -->
+                                    {{ message }}
+                                    
+                                    <!-- Кнопка закрытия сообщения -->
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            {% endblock %}
+            <!-- Блок для уникального содержимого конкретной страницы --><!-- Основной блок контента -->
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Подвал сайта -->
+        <!-- Блок для подвала -->
+        <footer class="mt-5 text-center">
+            {% block footer %}
+                <!-- Копирайт и информация об авторских правах -->
+                <p>Текстовое приключение &copy; 2025</p>
+            {% endblock %}
+        </footer>
+    </div>
+    
+    <!-- Основные скрипты --><!-- Подключение JavaScript-библиотеки Bootstrap -->
+    <script src="{{ url_for('static', filename="js/bootstrap.bundle.min.js") }}"></script>
+    <!-- Блок для дополнительных скриптов -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+
+

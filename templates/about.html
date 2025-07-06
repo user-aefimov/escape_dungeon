@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}О игре - Побег из подземелья{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">О игре</h1>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="lead">
+                "Побег из подземелья" - это текстовое приключение, где вы играете за персонажа, 
+                который пытается выбраться из мрачного подземелья на свежий воздух.
+            </p>
+            
+            <h3 class="mt-4">Правила игры</h3>
+            <ul>
+                <li>Вы начинаете игру в подземелье</li>
+                <li>Ваша цель - добраться до балкона</li>
+                <li>Перемещайтесь между комнатами, выбирая направление</li>
+                <li>Внимательно читайте описания комнат</li>
+            </ul>
+            
+            <div class="text-center mt-4">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">
+                    Начать игру
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
