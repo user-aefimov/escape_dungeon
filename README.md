@@ -3,8 +3,18 @@
 Текстовое приключение, в котором игрок должен выбраться из подземелья на балкон.
 
 ## Как запустить
-
 1. Убедитесь, что у вас установлен Python 3.8+
+
+git clone https://github.com/user-aefimov/escape_dungeon.git
+cd escape_dungeon
+python -m venv .venv
+
+Windows
+.venv\Scripts\activate
+
+Linux/macOS
+source .venv/bin/activate
+
 2. Установите зависимости: `pip install -r requirements.txt`
 3. Запустите приложение: `flask run`
 4. Откройте в браузере: `http://localhost:5000`
